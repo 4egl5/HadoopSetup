@@ -25,7 +25,7 @@ std::string installDE_And_XRDP(bool g,/*bool k,*/ bool x,bool m,bool pw, std::st
     system("cd ~");
     std::string install = "sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xrdp";
     if(g){
-        install +=" ubuntu-desktop";
+        install +=" gnome-session gnome-terminal";
         if (de ==""){
             de = "gnome-session";
         }
@@ -34,7 +34,7 @@ std::string installDE_And_XRDP(bool g,/*bool k,*/ bool x,bool m,bool pw, std::st
     //     install +=" kde-plasma-desktop";
     // }
     if(x){
-        install +=" xubuntu-desktop";
+        install +=" xfce4 xfce4-session";
         if (de ==""){
             de = "xfce-session";
         }
@@ -292,11 +292,8 @@ int main(int argc, char **argv){
     std::cout<<configHadoop();
     std::cout<<installHive();
     std::cout<<configHive();
-    system("cd ~");
     std::cout<<installPig();
-    system("cd ~");
     std::cout<<installZeppelin();
-    system("cd ~");
     return 0;
 
 }
