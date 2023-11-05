@@ -22,7 +22,7 @@ void helpFunction(){
 }
 
 std::string installDE_And_XRDP(bool g,/*bool k,*/ bool x,bool m,bool pw, std::string de){
-    chdir("~");
+    system("cd ~");
     std::string install = "sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xrdp";
     if(g){
         install +=" ubuntu-desktop";
@@ -58,16 +58,16 @@ std::string installDE_And_XRDP(bool g,/*bool k,*/ bool x,bool m,bool pw, std::st
 }
 
 std::string installJava(){
-    chdir("~");
+    system("cd ~");
     system("sudo apt install openjdk-8-jdk");
     system("echo 'export JAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64''>>.profile");
     system("echo 'export HADOOP_HOME='/usr/local/hadoop''>>.profile");
-    system("source .profile");
+    system("source ~/.profile");
     return "Java installed\n";
 }
 
 std::string installHadoop(){
-    chdir("~");
+    system("cd ~");
     system("wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz");
     system("tar -xzvf hadoop-3.3.6.tar.gz");
     system("sudo mv hadoop-3.3.6 '$HADOOP_HOME'");
@@ -77,7 +77,7 @@ std::string installHadoop(){
 }
 
 std::string configHadoop(){
-    chdir("~");
+    system("cd ~");
     // config $HADOOP_HOME/etc/hadoop/core-site.xml
     std::ifstream coresite;
     std::ofstream coresite_o;
@@ -137,7 +137,7 @@ std::string configHadoop(){
 }
 
 std::string installHive(){
-    chdir("~");
+    system("cd ~");
     system("wget https://dlcdn.apache.org/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz");
     system("tar -xzf  apache-hive-3.1.3-bin.tar.gz");
     system("sudo mv apache-hive-3.1.3-bin /usr/local/hive");
@@ -150,7 +150,7 @@ std::string installHive(){
 }
 
 std::string configHive(){
-    chdir("~");
+    system("cd ~");
     // config $HIVE_HOME/conf/hive-env.sh
     std::ifstream hiveenv;
     std::ofstream hiveenv_o;
@@ -195,13 +195,13 @@ std::string configHive(){
     system("hadoop fs -mkdir -p /user/hive/warehouse");
     system("hadoop fs -chmod g+w /user/hive/warehouse");
 
-    chdir("$HIVE_HOME");
+    system("cd $HIVE_HOME");
     system("bin/schematool -dbType derby -initSchema");
     return "Hive configured\n";
 }
 
 std::string installPig(){
-    chdir("~");
+    system("cd ~");
     system("wget https://dlcdn.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz");
     system("tar xvzf pig-0.17.0.tar.gz");
     system("sudo mv pig-0.17.0 /usr/local/hadoop/pig");
@@ -219,7 +219,7 @@ std::string installPig(){
 }
 
 std::string installZeppelin(){
-    chdir("~");
+    system("cd ~");
     system("wget https://dlcdn.apache.org/zeppelin/zeppelin-0.10.1/zeppelin-0.10.1-bin-all.tgz");
     system("tar -xzvf zeppelin-0.10.1-bin-all.tgz");
     system("sudo mv zeppelin-0.10.1-bin-all /usr/local/zeppelin");
@@ -229,7 +229,7 @@ std::string installZeppelin(){
     bashrc<<"\n## zeppelin settings\nexport ZEPPELIN_HOME=/usr/local/zeppelin\n";
     bashrc.close();
     system("source .bashrc");
-    chdir( "$ZEPPELIN_HOME");
+    system("cd $ZEPPELIN_HOME");
     system("bin/zeppelin-daemon.sh start");
     return "Zeppelin installed\n";
 }
@@ -292,11 +292,11 @@ int main(int argc, char **argv){
     std::cout<<configHadoop();
     std::cout<<installHive();
     std::cout<<configHive();
-    chdir("~");
+    system("cd ~");
     std::cout<<installPig();
-    chdir("~");
+    system("cd ~");
     std::cout<<installZeppelin();
-    chdir("~");
+    system("cd ~");
     return 0;
 
 }
