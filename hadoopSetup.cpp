@@ -70,7 +70,7 @@ std::string installHadoop(){
     system("cd ~");
     system("wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz");
     system("tar -xzvf hadoop-3.3.6.tar.gz");
-    system("sudo mv \"hadoop-3.3.6\" \"$HADOOP_HOME\"");
+    system("sudo mv ~/hadoop-3.3.6 \"$HADOOP_HOME\"");
     system("echo 'export PATH=\"$PATH:$HADOOP_HOME/bin\"'>>$HOME/.profile");
     system(". ~/.profile");
     return "Hadoop installed\n";
@@ -140,7 +140,7 @@ std::string installHive(){
     system("cd ~");
     system("wget https://dlcdn.apache.org/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz");
     system("tar -xzf  apache-hive-3.1.3-bin.tar.gz");
-    system("sudo mv \"apache-hive-3.1.3-bin\" \"/usr/local/hive\"");
+    system("sudo mv ~/apache-hive-3.1.3-bin /usr/local/hive");
     std::ofstream bashrc;
     bashrc.open(".bashrc",std::ios_base::app);
     bashrc<<"\n#Hadoop Path\nexport HADOOP_HOME=/usr/local/hadoop\nexport PATH=$PATH:$HADOOP_HOME/bin\nexport PATH=$PATH:$HADOOP_HOME/sbin\nexport HADOOP_MAPRED_HOME=${HADOOP_HOME}\nexport HADOOP_COMMON_HOME=${HADOOP_HOME}\nexport HADOOP_HDFS_HOME=${HADOOP_HOME}\nexport YARN_HOME=${HADOOP_HOME}\n\n#Hive configurations\nexport HIVE_HOME=/usr/local/hive\nexport PATH=$PATH:$HIVE_HOME/bin\nexport HIVE_CONF_DIR=$HIVE_HOME/conf\nexport CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.\nexport CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.\n";
@@ -204,7 +204,7 @@ std::string installPig(){
     system("cd ~");
     system("wget https://dlcdn.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz");
     system("tar xvzf pig-0.17.0.tar.gz");
-    system("sudo mv \"pig-0.17.0\" \"/usr/local/hadoop/pig\"");
+    system("sudo mv ~/pig-0.17.0 /usr/local/hadoop/pig");
     
     std::ofstream bashrc;
     bashrc.open(".bashrc",std::ios_base::app);
@@ -222,7 +222,7 @@ std::string installZeppelin(){
     system("cd ~");
     system("wget https://dlcdn.apache.org/zeppelin/zeppelin-0.10.1/zeppelin-0.10.1-bin-all.tgz");
     system("tar -xzvf zeppelin-0.10.1-bin-all.tgz");
-    system("sudo mv \"zeppelin-0.10.1-bin-all\" \"/usr/local/zeppelin\"");
+    system("sudo mv ~/zeppelin-0.10.1-bin-all /usr/local/zeppelin");
 
     std::ofstream bashrc;
     bashrc.open(".bashrc",std::ios_base::app);
