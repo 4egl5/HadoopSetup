@@ -243,44 +243,45 @@ int main(int argc, char **argv){
     bool mate = false;
     bool setpw = true;
     std::string defaultDE= "";
+
+
     for(int i =1; i<argc;i++){
-        if (std::string(argv[i])=="help"){
-            help = true;
-        }
-        if (std::string(argv[i])=="gnome"){
-            gnome = true;
-        }
-        // if (std::string(argv[i])=="kde"){
-        //     kde = true;
-        // }
-        if (std::string(argv[i])=="xfce"){
-            xfce = true;
-        }
-        if (std::string(argv[i])=="mate"){
-            mate = true;
-        }
-        
-        if (std::string(argv[i])=="skippw"){
-            setpw = false;
-        }
-        if (argc>2){
+        if(std::string(argv[i])!="help"&&std::string(argv[i])!="gnome"&&/*std::string(argv[i])!="kde"||*/std::string(argv[i])!="xfce"&&std::string(argv[i])!="mate"&&std::string(argv[i])!="skippw"&&std::string(argv[i]).substr(0,8)!="default="){
+            std::cout<<"Unknown params: "<<argv[i]<<", quitting\n";
+            return -1;
+        }else{
+            if (std::string(argv[i])=="help"){
+                help = true;
+            }
+            if (std::string(argv[i])=="gnome"){
+                gnome = true;
+            }
+            // if (std::string(argv[i])=="kde"){
+            //     kde = true;
+            // }
+            if (std::string(argv[i])=="xfce"){
+                xfce = true;
+            }
+            if (std::string(argv[i])=="mate"){
+                mate = true;
+            }
+            
+            if (std::string(argv[i])=="skippw"){
+                setpw = false;
+            }
             if (std::string(argv[i]).substr(0,8)=="default="){
-                defaultDE = std::string(argv[i]).substr(8,std::string(argv[i]).length()-8);
-                if(defaultDE!="gnome"&&/*defaultDE!="kde"&&*/defaultDE!="xfce"&&defaultDE!="mate"){
-                    std::cout<<"Wrong default params\nExpect gnome, xfce, mate, get "<<defaultDE<<", quitting\n";
-                    return -1;
-                }
-            }else{
-                if(i==(argc - 1)&&setpw ==true){
-                    std::cout<<("Missing default params, quitting\n");
-                    return -1;
-                }
+                    defaultDE = std::string(argv[i]).substr(8,std::string(argv[i]).length()-8);
+                        if(defaultDE!="gnome"&&/*defaultDE!="kde"&&*/defaultDE!="xfce"&&defaultDE!="mate"){
+                            std::cout<<"Wrong default params\nExpect gnome, xfce, mate, get "<<defaultDE<<", quitting\n";
+                            return -1;
+                        }
             }
         }
-
-        
     }
-    
+    if (defaultDE==""&&((setpw==false&&argc>2)||(setpw==true&&argc>3))){
+        std::cout<<("Missing default params, quitting\n");
+        return -1;
+    }
     if (help==true){
         helpFunction();
         return 0;
