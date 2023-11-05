@@ -68,7 +68,7 @@ std::string installJava(){
 
 std::string installHadoop(){
     chdir("~");
-    system("wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6-src.tar.gz");
+    system("wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz");
     system("tar -xzvf hadoop-3.3.6.tar.gz");
     system("sudo mv hadoop-3.3.6 '$HADOOP_HOME'");
     system("echo 'export PATH=\"$PATH:$HADOOP_HOME/bin\"'>>$HOME/.profile");
