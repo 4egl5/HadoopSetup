@@ -6,7 +6,7 @@ xfce=0
 mate=0
 setpw=false
 defaultDE=""
-xrdp=" xrdp"
+xrdp="xrdp"
 
 if [ $# > 0 ]; then
     while getopts 'hgxmsd:' OPTION; do
@@ -42,26 +42,30 @@ if [ $# > 0 ]; then
     done
 fi
 
-if [ $((gnome+xfce+mate)) == 1 ]; then
-    if [ $gnome == 1 ]; then
+if [[ $((gnome+xfce+mate)) < 1 ]]; then
+    xrdp=""
+fi
+
+if [[ $((gnome+xfce+mate)) == 1 ]]; then
+    if [[ $gnome == 1 ]]; then
         defaultDE="gnome-session"
     fi
-    if [ $xfce == 1 ]; then
+    if [[ $xfce == 1 ]]; then
         defaultDE="xfce-session"
     fi
-    if [ $mate == 1 ]; then
+    if [[ $mate == 1 ]]; then
         defaultDE="mate-session"
     fi
 fi
 
-if [ $((gnome+xfce+mate)) > 1 ]; then
+if [[ $((gnome+xfce+mate)) > 1 ]]; then
     if [ $defaultDE == "" ]; then
         echo "option requires an argument -- d"
-    elif ( [ $gnome == 1 ] && ([ $defaultDE == "g" ] || [ $defaultDE == "gnome" ]));then
+    elif ( [[ $gnome == 1 ]] && ([[ $defaultDE == "g" ]] || [[ $defaultDE == "gnome" ]]));then
         defaultDE="gnome-session"
-    elif ( [ $xfce == 1 ] && ([ $defaultDE == "x" ] || [ $defaultDE == "xfce" ]));then    
+    elif ( [[ $xfce == 1 ]] && ([[ $defaultDE == "x" ]] || [[ $defaultDE == "xfce" ]]));then    
         defaultDE="xfce-session"
-    elif ( [ $mate == 1 ] && ([ $defaultDE == "m" ] || [ $defaultDE == "mate" ]));then    
+    elif ( [[ $mate == 1 ]] && ([[ $defaultDE == "m" ]] || [[ $defaultDE == "mate" ]]));then    
         defaultDE="mate-session"
     else
         echo "illegal argument -- d"
@@ -69,37 +73,35 @@ if [ $((gnome+xfce+mate)) > 1 ]; then
     fi
 fi
 
-if [ $((gnome+xfce+mate)) < 1 ]; then
-    xrdp=""
-fi
 
-if [ $gnome == 1 ];then 
+if [[ $gnome == 1 ]];then 
     gnome="gnome-session gnome-terminal"
 else
     gnome=""
 fi
 
-if [ $xfce == 1 ];then 
+if [[ $xfce == 1 ]];then 
     xfce="xfce4 xfce4-session"
 else
     xfce=""
 fi
 
-if [ $mate == 1 ];then 
+if [[ $mate == 1 ]];then 
     mate="mate-desktop-environment"
 else
     mate=""
 fi
 
+
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install $xrdp $gnome $xfce $mate
 
-if [ $xrdp != "" ];then
+if [[ $xrdp != "" ]];then
     sudo systemctl enable xrdp
     sudo adduser xrdp ssl-cert
     echo $defaultDE>$HOME/.xsession
     sudo service xrdp restart
-    if [ $setpw == true ];then
+    if [[ $setpw == true ]];then
         sudo passwd $USER
     fi
 fi
