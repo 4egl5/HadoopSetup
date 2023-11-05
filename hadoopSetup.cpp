@@ -22,7 +22,6 @@ void helpFunction(){
 }
 
 std::string installDE_And_XRDP(bool g,/*bool k,*/ bool x,bool m,bool pw, std::string de){
-    system("cd ~");
     std::string install = "sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xrdp";
     if(g){
         install +=" gnome-session gnome-terminal";
@@ -45,39 +44,35 @@ std::string installDE_And_XRDP(bool g,/*bool k,*/ bool x,bool m,bool pw, std::st
             de = "mate-session";
         }
     }
-    // const char* i = install;
     system(install.c_str());
     system("sudo systemctl enable xrdp");
     system("sudo adduser xrdp ssl-cert");
-    system(("echo "+de+" >~/.xsession").c_str());
+    system(("echo "+de+" >$HOME/.xsession").c_str());
     system("sudo service xrdp restart");
     if (pw){
-        system("sudo paasswd $USER");
+        system("sudo passwd $USER");
     }
     return "Desktop Environment and XDRP setup successful\n";
 }
 
 std::string installJava(){
-    system("cd ~");
     system("sudo apt install -y openjdk-8-jdk");
-    system("echo 'export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\"'>>.profile");
-    system("echo 'export HADOOP_HOME=\"/usr/local/hadoop\"'>>.profile");
-    system(". ~/.profile");
+    system("echo 'export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\"'>>$HOME/.profile");
+    system("echo 'export HADOOP_HOME=\"/usr/local/hadoop\"'>>$HOME/.profile");
+    system("source $HOME/.profile");
     return "Java installed\n";
 }
 
 std::string installHadoop(){
-    system("cd ~");
     system("wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz");
     system("tar -xzvf hadoop-3.3.6.tar.gz");
-    system("sudo mv ~/hadoop-3.3.6 \"$HADOOP_HOME\"");
+    system("sudo mv $HOME/hadoop-3.3.6 $HADOOP_HOME");
     system("echo 'export PATH=\"$PATH:$HADOOP_HOME/bin\"'>>$HOME/.profile");
-    system(". ~/.profile");
+    system("source $HOME.profile");
     return "Hadoop installed\n";
 }
 
 std::string configHadoop(){
-    system("cd ~");
     // config $HADOOP_HOME/etc/hadoop/core-site.xml
     std::ifstream coresite;
     std::ofstream coresite_o;
@@ -97,7 +92,7 @@ std::string configHadoop(){
     }
     coresite.close();
     coresite_o.close();
-    system("mv \"$HADOOP_HOME/etc/hadoop/core-site2.xml\" \"$HADOOP_HOME/etc/hadoop/core-site.xml\"");
+    system("mv $HADOOP_HOME/etc/hadoop/core-site2.xml $HADOOP_HOME/etc/hadoop/core-site.xml");
 
 
 
@@ -119,7 +114,7 @@ std::string configHadoop(){
     }
     hdfssite.close();
     hdfssite_o.close();
-    system("mv \"$HADOOP_HOME/etc/hadoop/hdfs-site2.xml\" \"$HADOOP_HOME/etc/hadoop/hdfs-site.xml\"");
+    system("mv $HADOOP_HOME/etc/hadoop/hdfs-site2.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml");
 
     
     system("ssh-keygen");
@@ -129,7 +124,7 @@ std::string configHadoop(){
     system("sudo chown -R '$(whoami):' '$HADOOP_HOME'");
     system("hdfs namenode -format");
     system("echo 'export PATH=\"$PATH:$HADOOP_HOME/sbin\"'>>$HOME/.profile");
-    system(". $HOME/.profile");
+    system("source $HOME/.profile");
     system("echo 'export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\"'>>'$HADOOP_HOME/etc/hadoop/hadoop-env.sh'");
     system("start-dfs.sh");
     system("start-yarn.sh");
@@ -137,20 +132,18 @@ std::string configHadoop(){
 }
 
 std::string installHive(){
-    system("cd ~");
     system("wget https://dlcdn.apache.org/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz");
     system("tar -xzf  apache-hive-3.1.3-bin.tar.gz");
-    system("sudo mv ~/apache-hive-3.1.3-bin /usr/local/hive");
+    system("sudo mv $HOME/apache-hive-3.1.3-bin /usr/local/hive");
     std::ofstream bashrc;
-    bashrc.open(".bashrc",std::ios_base::app);
+    bashrc.open("$HOME/.bashrc",std::ios_base::app);
     bashrc<<"\n#Hadoop Path\nexport HADOOP_HOME=/usr/local/hadoop\nexport PATH=$PATH:$HADOOP_HOME/bin\nexport PATH=$PATH:$HADOOP_HOME/sbin\nexport HADOOP_MAPRED_HOME=${HADOOP_HOME}\nexport HADOOP_COMMON_HOME=${HADOOP_HOME}\nexport HADOOP_HDFS_HOME=${HADOOP_HOME}\nexport YARN_HOME=${HADOOP_HOME}\n\n#Hive configurations\nexport HIVE_HOME=/usr/local/hive\nexport PATH=$PATH:$HIVE_HOME/bin\nexport HIVE_CONF_DIR=$HIVE_HOME/conf\nexport CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.\nexport CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.\n";
     bashrc.close();
-    system(". .bashrc");
+    system("source $HOME/.bashrc");
     return "Hive installed\n";
 }
 
 std::string configHive(){
-    system("cd ~");
     // config $HIVE_HOME/conf/hive-env.sh
     std::ifstream hiveenv;
     std::ofstream hiveenv_o;
@@ -195,22 +188,21 @@ std::string configHive(){
     system("hadoop fs -mkdir -p /user/hive/warehouse");
     system("hadoop fs -chmod g+w /user/hive/warehouse");
 
-    system("cd $HIVE_HOME");
-    system("bin/schematool -dbType derby -initSchema");
+    // system("cd $HIVE_HOME");
+    system("cd $HIVE_HOME && bin/schematool -dbType derby -initSchema");
     return "Hive configured\n";
 }
 
 std::string installPig(){
-    system("cd ~");
     system("wget https://dlcdn.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz");
     system("tar xvzf pig-0.17.0.tar.gz");
-    system("sudo mv ~/pig-0.17.0 /usr/local/hadoop/pig");
+    system("sudo mv $HOME/pig-0.17.0 /usr/local/hadoop/pig");
     
     std::ofstream bashrc;
-    bashrc.open(".bashrc",std::ios_base::app);
+    bashrc.open("$HOME/.bashrc",std::ios_base::app);
     bashrc<<"\n#PIG settings\nexport PIG_HOME=/usr/local/hadoop/pig\nexport PATH=$PATH:$PIG_HOME/bin\nexport PIG_CLASSPATH=$PIG_HOME/conf:$HADOOP_INSTALL/etc/hadoop/\nexport PIG_CONF_DIR=$PIG_HOME/conf\nexport PIG_CLASSPATH=$PIG_CONF_DIR:$PATH\n#PIG setting ends\n";
     bashrc.close();
-    system(". .bashrc");
+    system("source .bashrc");
     system("stop-dfs.sh");
     system("start-dfs.sh");
     system("start-yarn.sh");
@@ -219,18 +211,17 @@ std::string installPig(){
 }
 
 std::string installZeppelin(){
-    system("cd ~");
     system("wget https://dlcdn.apache.org/zeppelin/zeppelin-0.10.1/zeppelin-0.10.1-bin-all.tgz");
     system("tar -xzvf zeppelin-0.10.1-bin-all.tgz");
-    system("sudo mv ~/zeppelin-0.10.1-bin-all /usr/local/zeppelin");
+    system("sudo mv $HOME/zeppelin-0.10.1-bin-all /usr/local/zeppelin");
 
     std::ofstream bashrc;
-    bashrc.open(".bashrc",std::ios_base::app);
+    bashrc.open("$HOME/.bashrc",std::ios_base::app);
     bashrc<<"\n## zeppelin settings\nexport ZEPPELIN_HOME=/usr/local/zeppelin\n";
     bashrc.close();
-    system(". .bashrc");
-    system("cd $ZEPPELIN_HOME");
-    system("bin/zeppelin-daemon.sh start");
+    system("source $HOME/.bashrc");
+    // system("cd $ZEPPELIN_HOME");
+    system("cd $ZEPPELIN_HOME && bin/zeppelin-daemon.sh start");
     return "Zeppelin installed\n";
 }
 
