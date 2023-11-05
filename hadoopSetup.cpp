@@ -59,7 +59,7 @@ std::string installDE_And_XRDP(bool g,/*bool k,*/ bool x,bool m,bool pw, std::st
 
 std::string installJava(){
     system("cd ~");
-    system("sudo apt install openjdk-8-jdk");
+    system("sudo apt install -y openjdk-8-jdk");
     system("echo 'export JAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64''>>.profile");
     system("echo 'export HADOOP_HOME='/usr/local/hadoop''>>.profile");
     system("source ~/.profile");
@@ -285,7 +285,7 @@ int main(int argc, char **argv){
         helpFunction();
         return 0;
     }
-    system("sudo apt-get update");
+    system("sudo apt-get -y update");
     std::cout<<installDE_And_XRDP(gnome,/*kde,*/xfce,mate,setpw,defaultDE);
     std::cout<<installJava();
     std::cout<<installHadoop();
