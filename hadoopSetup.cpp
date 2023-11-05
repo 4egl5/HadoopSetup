@@ -278,7 +278,7 @@ int main(int argc, char **argv){
             }
         }
     }
-    if (defaultDE==""&&((setpw==false&&argc>2)||(setpw==true&&argc>3))){
+    if (defaultDE==""&&((setpw==false&&argc>3)||(setpw==true&&argc>2))){
         std::cout<<("Missing default params, quitting\n");
         return -1;
     }
