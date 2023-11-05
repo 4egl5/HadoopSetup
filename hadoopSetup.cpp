@@ -62,7 +62,7 @@ std::string installJava(){
     system("sudo apt install -y openjdk-8-jdk");
     system("echo 'export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\"'>>.profile");
     system("echo 'export HADOOP_HOME=\"/usr/local/hadoop\"'>>.profile");
-    system("source ~/.profile");
+    system(". ~/.profile");
     return "Java installed\n";
 }
 
@@ -72,7 +72,7 @@ std::string installHadoop(){
     system("tar -xzvf hadoop-3.3.6.tar.gz");
     system("sudo mv hadoop-3.3.6 '$HADOOP_HOME'");
     system("echo 'export PATH=\"$PATH:$HADOOP_HOME/bin\"'>>$HOME/.profile");
-    system("source .profile");
+    system(". ~/.profile");
     return "Hadoop installed\n";
 }
 
@@ -129,7 +129,7 @@ std::string configHadoop(){
     system("sudo chown -R '$(whoami):' '$HADOOP_HOME'");
     system("hdfs namenode -format");
     system("echo 'export PATH=\"$PATH:$HADOOP_HOME/sbin\"'>>$HOME/.profile");
-    system("source $HOME/.profile");
+    system(". $HOME/.profile");
     system("echo 'export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\"'>>'$HADOOP_HOME/etc/hadoop/hadoop-env.sh'");
     system("start-dfs.sh");
     system("start-yarn.sh");
@@ -145,7 +145,7 @@ std::string installHive(){
     bashrc.open(".bashrc",std::ios_base::app);
     bashrc<<"\n#Hadoop Path\nexport HADOOP_HOME=/usr/local/hadoop\nexport PATH=$PATH:$HADOOP_HOME/bin\nexport PATH=$PATH:$HADOOP_HOME/sbin\nexport HADOOP_MAPRED_HOME=${HADOOP_HOME}\nexport HADOOP_COMMON_HOME=${HADOOP_HOME}\nexport HADOOP_HDFS_HOME=${HADOOP_HOME}\nexport YARN_HOME=${HADOOP_HOME}\n\n#Hive configurations\nexport HIVE_HOME=/usr/local/hive\nexport PATH=$PATH:$HIVE_HOME/bin\nexport HIVE_CONF_DIR=$HIVE_HOME/conf\nexport CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.\nexport CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.\n";
     bashrc.close();
-    system("source .bashrc");
+    system(". .bashrc");
     return "Hive installed\n";
 }
 
@@ -210,7 +210,7 @@ std::string installPig(){
     bashrc.open(".bashrc",std::ios_base::app);
     bashrc<<"\n#PIG settings\nexport PIG_HOME=/usr/local/hadoop/pig\nexport PATH=$PATH:$PIG_HOME/bin\nexport PIG_CLASSPATH=$PIG_HOME/conf:$HADOOP_INSTALL/etc/hadoop/\nexport PIG_CONF_DIR=$PIG_HOME/conf\nexport PIG_CLASSPATH=$PIG_CONF_DIR:$PATH\n#PIG setting ends\n";
     bashrc.close();
-    system("source .bashrc");
+    system(". .bashrc");
     system("stop-dfs.sh");
     system("start-dfs.sh");
     system("start-yarn.sh");
@@ -228,7 +228,7 @@ std::string installZeppelin(){
     bashrc.open(".bashrc",std::ios_base::app);
     bashrc<<"\n## zeppelin settings\nexport ZEPPELIN_HOME=/usr/local/zeppelin\n";
     bashrc.close();
-    system("source .bashrc");
+    system(". .bashrc");
     system("cd $ZEPPELIN_HOME");
     system("bin/zeppelin-daemon.sh start");
     return "Zeppelin installed\n";
