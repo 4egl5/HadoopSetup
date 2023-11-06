@@ -186,7 +186,7 @@ tar -xzvf zeppelin-0.10.1-bin-all.tgz
 
 echo '## zeppelin settings' >> $HOME/.bashrc
 echo 'export ZEPPELIN_HOME=/usr/local/zeppelin' >> $HOME/.bashrc
-source .bashrc
+source $HOME/.bashrc
 sudo mv zeppelin-0.10.1-bin-all "$ZEPPELIN_HOME"
 cd "$ZEPPELIN_HOME"
 bin/zeppelin-daemon.sh start
