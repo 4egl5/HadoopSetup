@@ -177,18 +177,15 @@ echo 'export PIG_CLASSPATH=$PIG_CONF_DIR:$PATH'>> $HOME/.bashrc
 echo '#PIG setting ends'>> $HOME/.bashrc
 
 source $HOME/.bashrc
-stop-dfs.sh
-start-dfs.sh
-start-yarn.sh
+stop-dfs.sh&&start-dfs.sh&&start-yarn.sh
 
 wget https://dlcdn.apache.org/zeppelin/zeppelin-0.10.1/zeppelin-0.10.1-bin-all.tgz
 tar -xzvf zeppelin-0.10.1-bin-all.tgz
 
 echo '## zeppelin settings' >> $HOME/.bashrc
-echo 'export ZEPPELIN_HOME=/usr/local/zeppelin' >> $HOME/.bashrc
+echo 'export ZEPPELIN_HOME=/usr/local/zeppelin'>> $HOME/.bashrc
 source $HOME/.bashrc
-sudo mv zeppelin-0.10.1-bin-all "$ZEPPELIN_HOME"
-cd "$ZEPPELIN_HOME"
+sudo mv zeppelin-0.10.1-bin-all $ZEPPELIN_HOME
+cd $ZEPPELIN_HOME
 bin/zeppelin-daemon.sh start
-
 cd ~
