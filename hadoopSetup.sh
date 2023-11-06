@@ -115,7 +115,7 @@ wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
 tar -xzvf hadoop-3.3.6.tar.gz
 sudo mv $HOME/hadoop-3.3.6 $HADOOP_HOME
 echo 'export PATH="$PATH:$HADOOP_HOME/bin"'>>$HOME/.profile
-
+source $HOME/.profile
 sed '/<configuration>/a \ <property>\n\ \ <name>fs.defaultFS</name>\n\ \ \ <value>hdfs://localhost:9000</value>\n\ </property>' -i $HADOOP_HOME/etc/hadoop/core-site.xml
 sed '/<configuration>/a \ \ <property>\n\ \ \ <name>dfs.replication</name>\n\ \ \ <value>1</value>\n\ \ </property>' -i $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
@@ -125,7 +125,7 @@ chmod 600 $HOME/.ssh/authorized_keys
 sudo chown -R "$(whoami):" "$HADOOP_HOME"
 hdfs namenode -format
 echo 'export PATH="$PATH:$HADOOP_HOME/sbin"'>>$HOME/.profile
-echo "export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"">>'$HADOOP_HOME/etc/hadoop/hadoop-env.sh
+echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"'>>$HADOOP_HOME/etc/hadoop/hadoop-env.sh
 source $HOME/.profile
 
 start-dfs.sh
@@ -135,7 +135,7 @@ wget https://dlcdn.apache.org/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz
 tar -xzf  apache-hive-3.1.3-bin.tar.gz
 sudo mv apache-hive-3.1.3-bin /usr/local/hive
 
-echo '#Hadoop Path'
+echo '#Hadoop Path'>>$HOME/.bashrc
 echo 'export HADOOP_HOME=/usr/local/hadoop' >>$HOME/.bashrc
 echo 'export PATH=$PATH:$HADOOP_HOME/bin' >>$HOME/.bashrc
 echo 'export PATH=$PATH:$HADOOP_HOME/sbin' >>$HOME/.bashrc
