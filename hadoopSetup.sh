@@ -150,8 +150,7 @@ echo 'export PATH=$PATH:$HIVE_HOME/bin' >>$HOME/.bashrc
 echo 'export HIVE_CONF_DIR=$HIVE_HOME/conf' >>$HOME/.bashrc
 echo 'export CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.' >>$HOME/.bashrc
 echo 'export CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.' >>$HOME/.bashrc
-
-source .bashrc
+source $HOME/.bashrc
 
 sed '/# HADOOP_HOME/c HADOOP_HOME=/usr/local/hadoop' $HIVE_HOME/conf/hive-env.sh.template >$HIVE_HOME/conf/hive-env.sh
 sed '/<!-- Hive Execution Parameters -->/a \ \ <property>\n\ \ \ \ <name>system:java.io.tmpdir</name>\n\ \ \ \ <value>/tmp/hive/java</value>\n\ \ </property>\n\ \ <property>\n\ \ \ \ <name>system:user.name</name>\n\ \ \ \ <value>${user.name}</value>\n\ \ </property>' $HIVE_HOME/conf/hive-default.xml.template>$HIVE_HOME/conf/hive-site.xml
@@ -177,7 +176,7 @@ echo 'export PIG_CONF_DIR=$PIG_HOME/conf'>> $HOME/.bashrc
 echo 'export PIG_CLASSPATH=$PIG_CONF_DIR:$PATH'>> $HOME/.bashrc
 echo '#PIG setting ends'>> $HOME/.bashrc
 
-source. bashrc
+source $HOME/.bashrc
 stop-dfs.sh
 start-dfs.sh
 start-yarn.sh
