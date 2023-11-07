@@ -1,5 +1,5 @@
 **NOT FOR PRODUCTION, and NOT SECURE, debian based distro only**
-
+Only tested on Ubuntu 22.04LTS and 23.10 server
 Modify the params of the script as needed
 ```
 wget https://raw.githubusercontent.com/4egl5/HadoopSetup/main/hadoopSetup.sh && chmod +x hadoopSetup.sh && ./hadoopSetup.sh -gs
