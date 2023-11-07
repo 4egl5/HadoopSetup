@@ -168,8 +168,8 @@ source $HOME/.bashrc
 sed '/# HADOOP_HOME/c HADOOP_HOME=/usr/local/hadoop' $HIVE_HOME/conf/hive-env.sh.template > $HIVE_HOME/conf/hive-env.sh
 sed '/<!-- Hive Execution Parameters -->/a \ \ <property>\n\ \ \ \ <name>system:java.io.tmpdir</name>\n\ \ \ \ <value>/tmp/hive/java</value>\n\ \ </property>\n\ \ <property>\n\ \ <name>system:user.name</name>\n\ \ \ \ <value>${user.name}</value>\n\ \ </property>' $HIVE_HOME/conf/hive-default.xml.template > $HIVE_HOME/conf/hive-site.xml
 
-hadoop fs -mkdir -p /user/hive/warehouse
-hadoop fs -chmod g+w /user/hive/warehouse
+hadoop fs -mkdir -p $HIVE_HOME/user/hive/warehouse
+hadoop fs -chmod g+w $HIVE_HOME/user/hive/warehouse
 
 cd $HIVE_HOME
 bin/schematool -dbType derby -initSchema
