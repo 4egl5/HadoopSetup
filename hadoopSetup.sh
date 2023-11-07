@@ -6,7 +6,7 @@ xfce=0
 mate=0
 setpw=false
 defaultDE=""
-xrdp="xrdp"
+xrdp="xrdp firefox"
 
 if [[ $# > 0 ]]; then
     while getopts 'hgxmsd:' OPTION; do
@@ -120,6 +120,9 @@ if [[ $xrdp != "" ]];then
     fi
 fi
 
+sudo apt-get -qq update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install gnome-session gnome-terminal firefox xrdp
+
 sudo apt install -qq -y openjdk-8-jdk
 echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"'>>$HOME/.profile
 echo 'export HADOOP_HOME="/usr/local/hadoop"'>>$HOME/.profile
@@ -136,7 +139,8 @@ sed '/<configuration>/a \ \ <property>\n\ \ \ \ <name>dfs.replication</name>\n\ 
 ssh-keygen
 cat $HOME/.ssh/id_rsa.pub>>$HOME/.ssh/authorized_keys
 chmod 600 $HOME/.ssh/authorized_keys
-echo chown -R "$(whoami):" $HADOOP_HOME
+ssh localhost
+echo chown -R "$(whoami):" "$HADOOP_HOME"
 hdfs namenode -format
 echo 'export PATH="$PATH:$HADOOP_HOME/sbin"'>>$HOME/.profile
 echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"'>>$HADOOP_HOME/etc/hadoop/hadoop-env.sh
@@ -209,4 +213,4 @@ bin/zeppelin-daemon.sh start
 stop-all.sh
 cd ~
 rm  apache-hive-3.1.3-bin.tar.gz  hadoop-3.3.6.tar.gz  hadoopSetup.sh  pig-0.16.0.tar.gz  zeppelin-0.10.1-bin-all.tgz
-sudo reboot
+# sudo reboot
