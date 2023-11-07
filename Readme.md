@@ -1,4 +1,4 @@
-**NOT FOR PRODUCTION, and NOT SECURE, debian based distro only**
+# **NOT FOR PRODUCTION, and NOT SECURE, debian based distro only**
 
 - Only tested on Ubuntu 22.04LTS and 23.10 server
 - Modify the params of the script as needed
