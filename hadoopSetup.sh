@@ -129,14 +129,14 @@ wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
 tar -xzvf hadoop-3.3.6.tar.gz
 sudo mv $HOME/hadoop-3.3.6 $HADOOP_HOME
 echo 'export PATH="$PATH:$HADOOP_HOME/bin"'>>$HOME/.profile
-source $HOME/.profile
+source $HOME/.profilec
 sed '/<configuration>/a \ \ <property>\n\ \ \ \ <name>fs.defaultFS</name>\n\ \ \ \ <value>hdfs://localhost:9000</value>\n\ \ </property>' -i $HADOOP_HOME/etc/hadoop/core-site.xml
 sed '/<configuration>/a \ \ <property>\n\ \ \ \ <name>dfs.replication</name>\n\ \ \ \ <value>1</value>\n\ \ </property>' -i $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
 ssh-keygen
 cat $HOME/.ssh/id_rsa.pub>>$HOME/.ssh/authorized_keys
 chmod 600 $HOME/.ssh/authorized_keys
-sudo chown -R "$(whoami):" "$HADOOP_HOME"
+echo chown -R "$(whoami):" $HADOOP_HOME
 hdfs namenode -format
 echo 'export PATH="$PATH:$HADOOP_HOME/sbin"'>>$HOME/.profile
 echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"'>>$HADOOP_HOME/etc/hadoop/hadoop-env.sh
@@ -202,5 +202,3 @@ sudo mv zeppelin-0.10.1-bin-all $ZEPPELIN_HOME
 cd $ZEPPELIN_HOME
 bin/zeppelin-daemon.sh start
 cd ~
-
-sudo reboot
