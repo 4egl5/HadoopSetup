@@ -12,9 +12,23 @@ if [ $# > 0 ]; then
     while getopts 'hgxmsd:' OPTION; do
         case "$OPTION" in
         h)
-            echo "-h: Print help function"
-            echo "-h: Print help function"
-            echo "-h: Print help function"
+            echo "Usage: 		./hadoopSetup.sh [params] -d [default_desktop_env_name]"
+            echo "Usage example: 	./hadoopSetup.sh -g"
+            echo "Usage example: 	./hadoopSetup.sh -gxms -d g"
+            echo ""
+            echo "-h:	Print help function"
+            echo ""
+            echo "-g:	Install gnome"
+            echo "-x:	Install xfce"
+            echo "-m:	Install mate"
+            echo ""
+            echo "-d	[default_desktop_env_name]: set default desktop environment"
+            echo "[default_desktop_env_name]:"
+            echo "g: gnome"
+            echo "x: xfce"
+            echo "m: mate"
+            echo ""
+            echo "-s:	set VM default user password"
             exit
         ;;
         g)
@@ -116,8 +130,8 @@ tar -xzvf hadoop-3.3.6.tar.gz
 sudo mv $HOME/hadoop-3.3.6 $HADOOP_HOME
 echo 'export PATH="$PATH:$HADOOP_HOME/bin"'>>$HOME/.profile
 source $HOME/.profile
-sed '/<configuration>/a \ <property>\n\ \ <name>fs.defaultFS</name>\n\ \ \ <value>hdfs://localhost:9000</value>\n\ </property>' -i $HADOOP_HOME/etc/hadoop/core-site.xml
-sed '/<configuration>/a \ \ <property>\n\ \ \ <name>dfs.replication</name>\n\ \ \ <value>1</value>\n\ \ </property>' -i $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+sed '/<configuration>/a \t<property>\n\t\t<name>fs.defaultFS</name>\n\t\t<value>hdfs://localhost:9000</value>\n\t</property>' -i $HADOOP_HOME/etc/hadoop/core-site.xml
+sed '/<configuration>/a \t<property>\n\t\t<name>dfs.replication</name>\n\t\t<value>1</value>\n\t</property>' -i $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
 ssh-keygen
 cat $HOME/.ssh/id_rsa.pub>>$HOME/.ssh/authorized_keys
@@ -153,7 +167,7 @@ echo 'export CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.' >>$HOME/.bashrc
 source $HOME/.bashrc
 
 sed '/# HADOOP_HOME/c HADOOP_HOME=/usr/local/hadoop' $HIVE_HOME/conf/hive-env.sh.template >$HIVE_HOME/conf/hive-env.sh
-sed '/<!-- Hive Execution Parameters -->/a \ \ <property>\n\ \ \ \ <name>system:java.io.tmpdir</name>\n\ \ \ \ <value>/tmp/hive/java</value>\n\ \ </property>\n\ \ <property>\n\ \ \ \ <name>system:user.name</name>\n\ \ \ \ <value>${user.name}</value>\n\ \ </property>' $HIVE_HOME/conf/hive-default.xml.template>$HIVE_HOME/conf/hive-site.xml
+sed '/<!-- Hive Execution Parameters -->/a \t<property>\n\t\t<name>system:java.io.tmpdir</name>\n\t\t<value>/tmp/hive/java</value>\n\t</property>\n\t<property>\n\t<name>system:user.name</name>\n\t\t<value>${user.name}</value>\n\t</property>' $HIVE_HOME/conf/hive-default.xml.template>$HIVE_HOME/conf/hive-site.xml
 
 hadoop fs -mkdir -p /user/hive/warehouse
 hadoop fs -chmod g+w /user/hive/warehouse
@@ -189,3 +203,4 @@ sudo mv zeppelin-0.10.1-bin-all $ZEPPELIN_HOME
 cd $ZEPPELIN_HOME
 bin/zeppelin-daemon.sh start
 cd ~
+reboot
