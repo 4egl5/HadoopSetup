@@ -1,5 +1,11 @@
 **NOT FOR PRODUCTION, and NOT SECURE, debian based distro only**
 
+Modify the params of the script as needed
+```
+wget https://raw.githubusercontent.com/4egl5/HadoopSetup/main/hadoopSetup.sh && chmod +x hadoopSetup.sh && ./hadoopSetup.sh -gs
+```
+
+
 # Usage of the script
 ```
 Usage: 		./hadoopSetup.sh [params] -d [default_desktop_env_name]
@@ -26,10 +32,6 @@ m: mate
 - For VNC, please modify the script on your own by following https://docs.xenserver.com/en-us/citrix-hypervisor/vms/enable-vnc-linux.html 
 - Ensure open ports for the RDP / VNC if you wish to use remote desktop 
 
-Modify the params of the script as needed
-```
-wget https://raw.githubusercontent.com/4egl5/HadoopSetup/main/hadoopSetup.sh && chmod +x hadoopSetup.sh && ./hadoopSetup.sh -gs
-```
 type exit after login to localhost ssh, it's for key setup
 
 # after the scipt run
