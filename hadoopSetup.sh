@@ -174,7 +174,7 @@ hadoop fs -chmod g+w $HIVE_HOME/user/hive/warehouse
 cd $HIVE_HOME
 bin/schematool -dbType derby -initSchema
 sed 's/\;databaseName=/\/usr\/local\/hive\//' -i $HIVE_HOME/conf/hive-site.xml
-
+sed 's/\&\#8\;/\ /' t -i  $HIVE_HOME/conf/hive-site.xml
 cd ~
 tar xvzf pig-0.16.0.tar.gz
 sudo mv pig-0.16.0 /usr/local/hadoop/pig
