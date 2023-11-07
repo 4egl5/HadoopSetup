@@ -170,8 +170,10 @@ sed '/<!-- Hive Execution Parameters -->/a \ \ <property>\n\ \ \ \ <name>system:
 
 hadoop fs -mkdir -p $HIVE_HOME/user/hive/warehouse
 hadoop fs -chmod g+w $HIVE_HOME/user/hive/warehouse
-
-sed 's/\&gt;/ /' $HIVE_HOME/conf/hive-site.xml|sed 's/\&lt;/ /'|sed 's/\&amp;/ /'|sed 's/&#8;/ /' >$HIVE_HOME/conf/hive-site.xml
+sed 's/\&gt;/ /' -i $HIVE_HOME/conf/hive-site.xml
+sed 's/\&lt;/ /' -i $HIVE_HOME/conf/hive-site.xml
+sed 's/\&amp;/ /' -i $HIVE_HOME/conf/hive-site.xml
+sed 's/&#8;/ /' -i $HIVE_HOME/conf/hive-site.xml
 
 cd $HIVE_HOME
 bin/schematool -dbType derby -initSchema
