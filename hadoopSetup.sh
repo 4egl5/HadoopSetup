@@ -123,13 +123,13 @@ fi
 sudo apt install -y openjdk-8-jdk
 echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"'>>$HOME/.profile
 echo 'export HADOOP_HOME="/usr/local/hadoop"'>>$HOME/.profile
-source $HOME/.profile
+. $HOME/.profile
 
 wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
 tar -xzvf hadoop-3.3.6.tar.gz
 sudo mv $HOME/hadoop-3.3.6 $HADOOP_HOME
 echo 'export PATH="$PATH:$HADOOP_HOME/bin"'>>$HOME/.profile
-source $HOME/.profile
+. $HOME/.profile
 sed '/<configuration>/a \t<property>\n\t\t<name>fs.defaultFS</name>\n\t\t<value>hdfs://localhost:9000</value>\n\t</property>' -i $HADOOP_HOME/etc/hadoop/core-site.xml
 sed '/<configuration>/a \t<property>\n\t\t<name>dfs.replication</name>\n\t\t<value>1</value>\n\t</property>' -i $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
@@ -140,7 +140,7 @@ sudo chown -R "$(whoami):" "$HADOOP_HOME"
 hdfs namenode -format
 echo 'export PATH="$PATH:$HADOOP_HOME/sbin"'>>$HOME/.profile
 echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"'>>$HADOOP_HOME/etc/hadoop/hadoop-env.sh
-source $HOME/.profile
+. $HOME/.profile
 
 start-dfs.sh&&start-yarn.sh&&jps
 
@@ -163,8 +163,8 @@ echo 'export PATH=$PATH:$HIVE_HOME/bin' >>$HOME/.bashrc
 echo 'export HIVE_CONF_DIR=$HIVE_HOME/conf' >>$HOME/.bashrc
 echo 'export CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.' >>$HOME/.bashrc
 echo 'export CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.' >>$HOME/.bashrc
-source $HOME/.bashrc
-bash
+. $HOME/.bashrc
+
 sed '/# HADOOP_HOME/c HADOOP_HOME=/usr/local/hadoop' $HIVE_HOME/conf/hive-env.sh.template > $HIVE_HOME/conf/hive-env.sh
 sed '/<!-- Hive Execution Parameters -->/a \t<property>\n\t\t<name>system:java.io.tmpdir</name>\n\t\t<value>/tmp/hive/java</value>\n\t</property>\n\t<property>\n\t<name>system:user.name</name>\n\t\t<value>${user.name}</value>\n\t</property>' $HIVE_HOME/conf/hive-default.xml.template > $HIVE_HOME/conf/hive-site.xml
 
@@ -188,8 +188,8 @@ echo 'export PIG_CONF_DIR=$PIG_HOME/conf'>> $HOME/.bashrc
 echo 'export PIG_CLASSPATH=$PIG_CONF_DIR:$PATH'>> $HOME/.bashrc
 echo '#PIG setting ends'>> $HOME/.bashrc
 
-source $HOME/.bashrc
-bash
+. $HOME/.bashrc
+
 stop-dfs.sh&&start-dfs.sh&&start-yarn.sh&&jps
 
 wget https://dlcdn.apache.org/zeppelin/zeppelin-0.10.1/zeppelin-0.10.1-bin-all.tgz
@@ -197,8 +197,8 @@ tar -xzvf zeppelin-0.10.1-bin-all.tgz
 
 echo '## zeppelin settings' >> $HOME/.bashrc
 echo 'export ZEPPELIN_HOME=/usr/local/zeppelin'>> $HOME/.bashrc
-source $HOME/.bashrc 
-bash
+. $HOME/.bashrc 
+
 sudo mv zeppelin-0.10.1-bin-all $ZEPPELIN_HOME
 cd $ZEPPELIN_HOME
 bin/zeppelin-daemon.sh start
