@@ -139,7 +139,6 @@ sed '/<configuration>/a \ \ <property>\n\ \ \ \ <name>dfs.replication</name>\n\ 
 ssh-keygen
 cat $HOME/.ssh/id_rsa.pub>>$HOME/.ssh/authorized_keys
 chmod 600 $HOME/.ssh/authorized_keys
-# ssh localhost
 echo chown -R "$(whoami):" "$HADOOP_HOME"
 hdfs namenode -format
 echo 'export PATH="$PATH:$HADOOP_HOME/sbin"'>>$HOME/.profile
