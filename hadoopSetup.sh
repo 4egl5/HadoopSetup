@@ -8,7 +8,7 @@ setpw=false
 defaultDE=""
 xrdp="xrdp"
 
-if [ $# > 0 ]; then
+if [[ $# > 0 ]]; then
     while getopts 'hgxmsd:' OPTION; do
         case "$OPTION" in
         h)
