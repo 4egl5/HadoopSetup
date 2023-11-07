@@ -164,7 +164,7 @@ echo 'export HIVE_CONF_DIR=$HIVE_HOME/conf' >>$HOME/.bashrc
 echo 'export CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.' >>$HOME/.bashrc
 echo 'export CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.' >>$HOME/.bashrc
 source $HOME/.bashrc
-
+bash
 sed '/# HADOOP_HOME/c HADOOP_HOME=/usr/local/hadoop' $HIVE_HOME/conf/hive-env.sh.template > $HIVE_HOME/conf/hive-env.sh
 sed '/<!-- Hive Execution Parameters -->/a \t<property>\n\t\t<name>system:java.io.tmpdir</name>\n\t\t<value>/tmp/hive/java</value>\n\t</property>\n\t<property>\n\t<name>system:user.name</name>\n\t\t<value>${user.name}</value>\n\t</property>' $HIVE_HOME/conf/hive-default.xml.template > $HIVE_HOME/conf/hive-site.xml
 
@@ -189,6 +189,7 @@ echo 'export PIG_CLASSPATH=$PIG_CONF_DIR:$PATH'>> $HOME/.bashrc
 echo '#PIG setting ends'>> $HOME/.bashrc
 
 source $HOME/.bashrc
+bash
 stop-dfs.sh&&start-dfs.sh&&start-yarn.sh&&jps
 
 wget https://dlcdn.apache.org/zeppelin/zeppelin-0.10.1/zeppelin-0.10.1-bin-all.tgz
@@ -196,7 +197,9 @@ tar -xzvf zeppelin-0.10.1-bin-all.tgz
 
 echo '## zeppelin settings' >> $HOME/.bashrc
 echo 'export ZEPPELIN_HOME=/usr/local/zeppelin'>> $HOME/.bashrc
-source $HOME/.bashrc && sudo mv zeppelin-0.10.1-bin-all $ZEPPELIN_HOME
+source $HOME/.bashrc 
+bash
+sudo mv zeppelin-0.10.1-bin-all $ZEPPELIN_HOME
 cd $ZEPPELIN_HOME
 bin/zeppelin-daemon.sh start
 cd ~
