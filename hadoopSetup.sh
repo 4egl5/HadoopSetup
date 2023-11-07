@@ -129,7 +129,7 @@ wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
 tar -xzvf hadoop-3.3.6.tar.gz
 sudo mv $HOME/hadoop-3.3.6 $HADOOP_HOME
 echo 'export PATH="$PATH:$HADOOP_HOME/bin"'>>$HOME/.profile
-source $HOME/.profilec
+source $HOME/.profile
 sed '/<configuration>/a \ \ <property>\n\ \ \ \ <name>fs.defaultFS</name>\n\ \ \ \ <value>hdfs://localhost:9000</value>\n\ \ </property>' -i $HADOOP_HOME/etc/hadoop/core-site.xml
 sed '/<configuration>/a \ \ <property>\n\ \ \ \ <name>dfs.replication</name>\n\ \ \ \ <value>1</value>\n\ \ </property>' -i $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 
