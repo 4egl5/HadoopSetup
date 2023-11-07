@@ -153,7 +153,7 @@ echo 'export HADOOP_HOME=/usr/local/hadoop' >>$HOME/.bashrc
 echo 'export PATH=$PATH:$HADOOP_HOME/bin' >>$HOME/.bashrc
 echo 'export PATH=$PATH:$HADOOP_HOME/sbin' >>$HOME/.bashrc
 echo 'export HADOOP_MAPRED_HOME=${HADOOP_HOME}' >>$HOME/.bashrc
-echo 'export HADOOP_COM\ \ MON_HOME=${HADOOP_HOME}' >>$HOME/.bashrc
+echo 'export HADOOP_COMMON_HOME=${HADOOP_HOME}' >>$HOME/.bashrc
 echo 'export HADOOP_HDFS_HOME=${HADOOP_HOME}' >>$HOME/.bashrc
 echo 'export YARN_HOME=${HADOOP_HOME}' >>$HOME/.bashrc
 echo ' '>>$HOME/.bashrc
@@ -176,7 +176,6 @@ bin/schematool -dbType derby -initSchema
 sed 's/\;databaseName=/\/usr\/local\/hive\//' -i $HIVE_HOME/conf/hive-site.xml
 
 cd ~
-wget https://dlcdn.apache.org/pig/pig-0.16.0/pig-0.16.0.tar.gz
 tar xvzf pig-0.16.0.tar.gz
 sudo mv pig-0.16.0 /usr/local/hadoop/pig
 
