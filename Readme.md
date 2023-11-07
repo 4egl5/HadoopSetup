@@ -3,6 +3,7 @@
 
 - Only tested on Ubuntu 22.04LTS and 23.10 server
 - Modify the params of the script as needed
+- Data in hadoop will loss after reboot due to default path is tmp, see: https://stackoverflow.com/questions/28379048/data-lost-after-shutting-down-hadoop-hdfs 
 ```
 wget https://raw.githubusercontent.com/4egl5/HadoopSetup/main/hadoopSetup.sh && chmod +x hadoopSetup.sh && ./hadoopSetup.sh -gs
 ```
