@@ -50,3 +50,8 @@ Check if all the process running, especially namenode, sth like this
 5101 Jps
 1919 SecondaryNameNode
 ```
+And check from GUI:
+Resource Manager:    http://localhost:8088 
+Hadoop GUI:          http://localhost:9870
+Hadoop FileSystem:   http://localhost:9870/explorer.html#/
+Zeppelin:            http://localhost:8080/
