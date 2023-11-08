@@ -31,7 +31,7 @@ m: mate
 ```
 
 # After create the VM
-- This code use xrdp
+- This code use xrdp if install GUI params used (eg:-g)
 - For VNC, please modify the script on your own by following https://docs.xenserver.com/en-us/citrix-hypervisor/vms/enable-vnc-linux.html 
 - Ensure open ports for the RDP / VNC if you wish to use remote desktop 
 
