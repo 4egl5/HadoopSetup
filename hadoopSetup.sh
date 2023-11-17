@@ -211,5 +211,10 @@ cd $ZEPPELIN_HOME
 bin/zeppelin-daemon.sh start
 stop-all.sh
 cd ~
+
+echo "hdfs namenode -format">>$HOME/.profile
+echo "start-all.sh"/.profile
+echo "$ZEPPELIN_HOME/bin/zeppelin-daemon.sh start"/.profile
+
 rm  apache-hive-3.1.3-bin.tar.gz  hadoop-3.3.6.tar.gz  hadoopSetup.sh  pig-0.16.0.tar.gz  zeppelin-0.10.1-bin-all.tgz
 sudo reboot

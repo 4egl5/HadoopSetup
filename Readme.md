@@ -35,13 +35,7 @@ m: mate
 - For VNC, please modify the script on your own by following https://docs.xenserver.com/en-us/citrix-hypervisor/vms/enable-vnc-linux.html 
 - Ensure open ports for the RDP / VNC if you wish to use remote desktop 
 
-wait for reboot and open terminal
-```
-hdfs namenode -format
-start-all.sh
-$ZEPPELIN_HOME/bin/zeppelin-daemon.sh start
-jps
-```
+
 Check if all the process running, especially namenode, sth like this
 ```
 4898 ZeppelinServer
