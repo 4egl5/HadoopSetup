@@ -35,7 +35,7 @@ m: mate
 - For VNC, please modify the script on your own by following https://docs.xenserver.com/en-us/citrix-hypervisor/vms/enable-vnc-linux.html 
 - Ensure open ports for the RDP / VNC if you wish to use remote desktop 
 
-- Type ```jps`` and check if all process running, result will be sth like this
+- Type ```jps``` and check if all process running, result will be sth like this
 ```
 4898 ZeppelinServer
 1733 DataNode
